@@ -1,22 +1,20 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsOptional } from 'class-validator';
+import { ApiPropertyOptional } from '@nestjs/swagger';
+import { IsOptional, IsString } from 'class-validator';
 import { AiData } from '../ai.types';
 
 export class ProcessTextDto {
-
-  @ApiProperty({
+  @ApiPropertyOptional({
     description: 'Texto de entrada para procesar',
-    example: 'Se me prende fuego mi casa, no hay nadie dentro.',
+    example: 'Hubo un incendio en mi casa ayer',
   })
   @IsString()
   text: string;
 
-  
   @ApiPropertyOptional({
     description: 'Datos previos de la IA (AiData) a fusionar con la nueva información',
     example: {
       date: '2025-01-31',
-      location: 'domicilio titular',
+      location: 'Domicilio titular',
       description: 'House fire',
       injuries: false,
       owner: true,
@@ -26,4 +24,12 @@ export class ProcessTextDto {
   })
   @IsOptional()
   oldData?: AiData;
+
+  @ApiPropertyOptional({
+    description: 'Zona horaria del usuario (ej: America/Argentina/Buenos_Aires)',
+    example: 'America/Argentina/Buenos_Aires',
+  })
+  @IsOptional()
+  @IsString()
+  userTimeZone?: string;
 }

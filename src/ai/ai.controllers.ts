@@ -1,5 +1,5 @@
 import { Controller, Post, Body, UsePipes, ValidationPipe } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger'; 
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { AiResponse } from './ai.types';
 import { AiService } from './ai.service';
 import { ProcessTextDto } from './dto/process-text.dto';
@@ -15,7 +15,7 @@ export class AiController {
   async processText(
     @Body() dto: ProcessTextDto,
   ): Promise<AiResponse> {
-    const { text, oldData } = dto;
-    return this.aiService.processInput(text, oldData);
+    const { text, oldData, userTimeZone } = dto;
+    return this.aiService.processInput(text, userTimeZone, oldData);
   }
 }
